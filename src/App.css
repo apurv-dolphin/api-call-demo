@@ -1,0 +1,45 @@
+body {
+    background-color: #f0efed;
+}
+
+element.style {
+    background-color: whitesmoke;
+}
+
+.ap {
+    text-align: right;
+}
+
+.ap2 {
+    box-sizing: content-box;
+    text-align: center;
+}
+
+.ap3 {
+    margin: 1%;
+}
+
+.ap4 {
+    margin: 2%;
+    cursor: pointer;
+    padding: 10px;
+    box-shadow: 6px 7px gainsboro;
+}
+
+.card-img {
+    height: 180px;
+}
+
+.card {
+    border: 3px solid;
+    padding: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    box-shadow: 6px 7px gainsboro;
+}
+
+.card-body {
+    text-align: left;
+}
