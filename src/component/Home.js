@@ -1,6 +1,4 @@
-import Grid from "./Grid";
-import List from "./List";
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import {
   Container,
   NavDropdown,
@@ -9,10 +7,13 @@ import {
   FormControl,
   Form,
   Button,
-  Spinner,
 } from "react-bootstrap";
 import Pagination from "./Pagination";
 import { useNavigate, useParams } from "react-router-dom";
+import { Loader } from "./Loader";
+
+const Grid = lazy(() => import("./Grid"));
+const List = lazy(() => import("./List"));
 
 export default function Home() {
   const [view, setView] = useState(true);
@@ -22,7 +23,6 @@ export default function Home() {
   const [postperpage] = useState(8);
   const [searchInput, setSearchInput] = useState([]);
   const [filter, setFilter] = useState("");
-  const [loading, setLoading] = useState(false);
   const nevigate = useNavigate();
   const { category } = useParams();
 
@@ -79,11 +79,9 @@ export default function Home() {
   }, []);
 
   const filterdropdown = (carditem) => {
-    console.log("__ci", carditem);
     const filcard = data.filter((cardData) => {
       return cardData.category === carditem.category;
     });
-    console.log("__ap", filcard);
     if ({ category }) {
       nevigate(`/products/${carditem.category}`);
       setData(filcard);
@@ -97,7 +95,6 @@ export default function Home() {
         setData(response);
         setSearchInput(response);
       });
-    setLoading(true);
   };
 
   useEffect(() => {
@@ -185,19 +182,19 @@ export default function Home() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {view ? (
-        <Grid Data={(data, currentPosts)} />
-      ) : (
-        <List Data={(data, currentPosts)} />
-      )}
-      {loading ? (
-        ""
-      ) : (
-        <div style={{ textAlign: "center" }}>
-          <h1>loading...</h1>
-          <Spinner animation="border" />
-        </div>
-      )}
+      <Suspense
+        fallback={
+          <div>
+            <Loader />
+          </div>
+        }
+      >
+        {view ? (
+          <Grid Data={(data, currentPosts)} />
+        ) : (
+          <List Data={(data, currentPosts)} />
+        )}
+      </Suspense>
       <Pagination
         postperpage={postperpage}
         totalPost={data.length}

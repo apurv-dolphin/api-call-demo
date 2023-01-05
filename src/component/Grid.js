@@ -10,13 +10,13 @@ export default function Grid({ Data }) {
       <Row className="my-5">
         {Data.map((newdata) => {
           return (
-            <Col className="col-md-3" key={newdata.id}>
+            <Col md={4} sm={12} lg={3} key={newdata.id}>
               <Card
                 height="400px"
                 className="ap4"
                 onClick={() => {
                   if (category === undefined) {
-                    navigate(`/product/${newdata.slug}`);
+                    navigate(`/product/?slug=${newdata.slug}`);
                   } else {
                     navigate(
                       `/products/${newdata.category}/product/${newdata.slug}`
