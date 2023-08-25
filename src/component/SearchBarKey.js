@@ -7,16 +7,25 @@ export default function SearchBarKey() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      console.log(e);
-      if (e.ctrlKey && (e.key === "x" || e.key === "X")) {
+      e.preventDefault();
+      if (e.ctrlKey && e.keyCode === 75) {
         setOpen(!open);
       }
     };
 
+    const handleCloseKeyDown = (evt) => {
+      if (evt.keyCode === 27) {
+        // Escape key pressed
+        setOpen(false);
+      }
+    };
+
     document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleCloseKeyDown);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleCloseKeyDown);
     };
   }, [open]);
 
@@ -36,7 +45,7 @@ export default function SearchBarKey() {
           <p className="mb-0 p-1">
             <BiSearchAlt />
             <span>Search</span>
-            <span>Ctrl + X</span>
+            <span>Ctrl + K</span>
           </p>
         </button>
       </div>
