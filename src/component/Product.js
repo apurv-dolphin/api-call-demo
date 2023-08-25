@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Modal } from "react-bootstrap";
 
 export default function Product() {
@@ -7,19 +7,20 @@ export default function Product() {
   const navigate = useNavigate();
   const { slug } = useParams();
 
-  const apiGet = async () => {
+  const apiGet = useCallback(async () => {
     await fetch(
       `https://60ff90a3bca46600171cf36d.mockapi.io/api/products?slug=${slug}`
     )
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         setUser(response);
       });
-  };
+  }, [slug]);
 
   useEffect(() => {
     apiGet();
-  }, []);
+  }, [apiGet]);
 
   return (
     <>

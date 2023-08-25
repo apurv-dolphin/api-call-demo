@@ -9,8 +9,10 @@ import {
   Button,
 } from "react-bootstrap";
 import Pagination from "./Pagination";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { Loader } from "./Loader";
+import { useCallback } from "react";
+import UserRating from "./Rating";
 
 const Grid = lazy(() => import("./Grid"));
 const List = lazy(() => import("./List"));
@@ -88,18 +90,18 @@ export default function Home() {
     }
   };
 
-  const apiGet = async () => {
+  const apiGet = useCallback(async () => {
     await fetch("https://60ff90a3bca46600171cf36d.mockapi.io/api/products")
       .then((response) => response.json())
       .then((response) => {
         setData(response);
         setSearchInput(response);
       });
-  };
+  }, []);
 
   useEffect(() => {
     apiGet();
-  }, []);
+  }, [apiGet]);
 
   return (
     <Container>
@@ -154,6 +156,21 @@ export default function Home() {
                 ))}
               </NavDropdown>
             </Nav>
+            <Navbar.Collapse id="navbarScroll">
+              <Nav
+                className="me-auto my-2 my-lg-0 ml-2"
+                style={{ maxHeight: "100px", cursor: "pointer" }}
+                navbarScroll
+              >
+                <NavLink
+                  to="/search-key"
+                  className="text-decoration-none"
+                  style={{ color: "black" }}
+                >
+                  S-KEY
+                </NavLink>
+              </Nav>
+            </Navbar.Collapse>
             <Nav
               className="me-auto my-2 my-lg-0"
               style={{ maxHeight: "100px" }}
@@ -168,6 +185,7 @@ export default function Home() {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
+            <UserRating />
             <Form className="d-flex">
               <FormControl
                 type="search"

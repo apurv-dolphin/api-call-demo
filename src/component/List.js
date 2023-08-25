@@ -17,7 +17,7 @@ export default function List({ Data }) {
                   style={{ width: "500px", margin: "16px" }}
                   onClick={() => {
                     if (category === undefined) {
-                      navigate(`/product/?slug=${newdata.slug}`);
+                      navigate(`/product/${newdata.slug}`);
                     } else {
                       navigate(
                         `/products/${newdata.category}/product/${newdata.slug}`

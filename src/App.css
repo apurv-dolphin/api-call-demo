@@ -43,3 +43,15 @@ element.style {
 .card-body {
     text-align: left;
 }
+
+/* Unchecked star */
+.fa-star {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+  }
+  
+  /* Checked star */
+  .fa-star.checked {
+    color: #ffcc00;
+  }

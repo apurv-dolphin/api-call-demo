@@ -16,7 +16,7 @@ export default function Grid({ Data }) {
                 className="ap4"
                 onClick={() => {
                   if (category === undefined) {
-                    navigate(`/product/?slug=${newdata.slug}`);
+                    navigate(`/product/${newdata.slug}`);
                   } else {
                     navigate(
                       `/products/${newdata.category}/product/${newdata.slug}`
